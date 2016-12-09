@@ -165,6 +165,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         imagePickerImageView.image = nil
         memeTextFieldTop.text = "TOP"
         memeTextFieldBottom.text = "BOTTOM"
+        
+        checkImagePickerImageViewHasImage()
     }
     
     func checkImagePickerImageViewHasImage() {
