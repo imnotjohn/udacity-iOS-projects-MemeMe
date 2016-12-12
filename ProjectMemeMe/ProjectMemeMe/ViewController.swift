@@ -8,13 +8,13 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
-    
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, ModalViewControllerDelegate {
+//    , UIPickerViewDelegate, UIPickerViewDataSource
     @IBOutlet weak var memeTextFieldTop: UITextField!
     @IBOutlet weak var memeTextFieldBottom: UITextField!
     @IBOutlet weak var cameraItemBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var findImageBarButtonItem: UIBarButtonItem!
-    @IBOutlet weak var fontPickerView: UIPickerView!
+//    @IBOutlet weak var fontPickerView: UIPickerView!
    
     @IBOutlet weak var imagePickerImageView: UIImageView!
     
@@ -24,7 +24,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var toolBar: UIToolbar!
     
-    var currentFontName = ["Impact", "Courier-Bold", "ChalkboardSE-Bold"]
+//    var currentFontName = ["Impact", "Courier-Bold", "ChalkboardSE-Bold"]
     
     let memeTextAttributes: [String: Any] = [
         NSStrokeColorAttributeName: UIColor.black,
@@ -56,8 +56,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         memeTextFieldBottom.delegate = self
         imagePickerController.delegate = self
         
-        fontPickerView.delegate = self //test
-        fontPickerView.dataSource = self //test
+//        fontPickerView.delegate = self //test
+//        fontPickerView.dataSource = self //test
+        
+        //test
+        self.modalPresentationStyle = UIModalPresentationStyle.custom
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -152,24 +155,42 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 //        present(fontPickerAlertView, animated: true, completion: nil)
 //    }
     
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return currentFontName.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return currentFontName[row]
-    }
+//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+//        return 1
+//    }
+//    
+//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+//        return currentFontName.count
+//    }
+//    
+//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//        return currentFontName[row]
+//    }
     
     // Capture Picker View Selection
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        memeTextFieldTop.font = UIFont(name: currentFontName[row], size: 55)!
-        memeTextFieldBottom.font = UIFont(name: currentFontName[row], size: 55)!
+//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+//        memeTextFieldTop.font = UIFont(name: currentFontName[row], size: 55)!
+//        memeTextFieldBottom.font = UIFont(name: currentFontName[row], size: 55)!
+//    }
+    //test
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let segueID = segue.identifier else {return}
+        
+        switch segueID {
+            case "modalSegue":
+                let destVC = segue.destination as! ModalViewController
+                destVC.modalDelegate = self
+                break
+            default:
+                break
+        }
     }
-
+    
+    func sendValue(value: NSString) {
+        print(value)
+        memeTextFieldTop.font = UIFont(name: value as String, size: 55)!
+        memeTextFieldBottom.font = UIFont(name: value as String, size: 55)!
+    }
     
 // MARK: - NavBar - Share / Cancel
     @IBAction func shareMeme(_ sender: Any) {
