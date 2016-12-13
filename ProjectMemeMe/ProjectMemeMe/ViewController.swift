@@ -7,14 +7,14 @@
 //
 
 import UIKit
+import AVFoundation //test
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, ModalViewControllerDelegate {
-//    , UIPickerViewDelegate, UIPickerViewDataSource
+    
     @IBOutlet weak var memeTextFieldTop: UITextField!
     @IBOutlet weak var memeTextFieldBottom: UITextField!
     @IBOutlet weak var cameraItemBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var findImageBarButtonItem: UIBarButtonItem!
-//    @IBOutlet weak var fontPickerView: UIPickerView!
    
     @IBOutlet weak var imagePickerImageView: UIImageView!
     
@@ -24,9 +24,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var toolBar: UIToolbar!
     
-    var imageViewRatio : Float! //test
-    
-//    var currentFontName = ["Impact", "Courier-Bold", "ChalkboardSE-Bold"]
+    var currentImageViewWidth : CGFloat! //test
+    var currentImageViewHeight : CGFloat! //test
+    var currentImageViewRatio : CGFloat! //test
+    var orientation = UIApplication.shared.statusBarOrientation //test
     
     let memeTextAttributes: [String: Any] = [
         NSStrokeColorAttributeName: UIColor.black,
@@ -45,23 +46,19 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         UIApplication.shared.isStatusBarHidden = true
         
         //set textField attributes
-//        memeTextFieldTop.defaultTextAttributes = memeTextAttributes
-//        memeTextFieldBottom.defaultTextAttributes = memeTextAttributes
-//        memeTextFieldTop.textAlignment = .center
-//        memeTextFieldBottom.textAlignment = .center
+        memeTextFieldTop.defaultTextAttributes = memeTextAttributes
+        memeTextFieldBottom.defaultTextAttributes = memeTextAttributes
+        memeTextFieldTop.textAlignment = .center
+        memeTextFieldBottom.textAlignment = .center
         
         //dismiss keyboard
         let didTap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(didTap)
-    
+   
         memeTextFieldTop.delegate = self
         memeTextFieldBottom.delegate = self
         imagePickerController.delegate = self
         
-//        fontPickerView.delegate = self //test
-//        fontPickerView.dataSource = self //test
-        
-        //test
         self.modalPresentationStyle = UIModalPresentationStyle.custom
     }
     
@@ -76,6 +73,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         unsubscribeFromKeyboardNotifications()
+    }
+    
+// MARK: - Determine Orientation
+    //test
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        coordinator.animate(alongsideTransition: ({(context) -> Void in
+            self.getRatioWH()
+        }), completion: nil)
+    }
+    
+    func getRatioWH() {
+        imagePickerImageView.contentMode = .scaleAspectFill
     }
     
 // MARK: - TextField Delegate
@@ -128,7 +137,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             
-            imagePickerImageView.image = image
+            
+            //test
+            let rect = AVMakeRect(aspectRatio: image.size, insideRect: imagePickerImageView.bounds)
+            UIGraphicsBeginImageContextWithOptions(imagePickerImageView.frame.size, false, 0.0)
+            image.draw(in: rect)
+            let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+            imagePickerImageView.image = scaledImage
+            print("\t\t\tscaledImage.size: \(scaledImage?.size)\t\t\toriginalImage.size: \(image.size)")
             dismiss(animated: true, completion: nil)
         }
     }
@@ -147,34 +163,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         presentImagePickerController()
     }
     
-//    @IBAction func changeFont() {
-//        let fontPickerAlertView = UIAlertController(title: "Select Font", message: " ", preferredStyle: UIAlertControllerStyle.alert)
-//        
-//        fontPickerView.center.x = self.view.center.x
-//        fontPickerAlertView.view.addSubview(fontPickerView)
-//        let action = UIAlertAction(title: "Done", style: UIAlertActionStyle.default, handler: nil)
-//        fontPickerAlertView.addAction(action)
-//        present(fontPickerAlertView, animated: true, completion: nil)
-//    }
-    
-//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-//        return 1
-//    }
-//    
-//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-//        return currentFontName.count
-//    }
-//    
-//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//        return currentFontName[row]
-//    }
-    
-    // Capture Picker View Selection
-//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//        memeTextFieldTop.font = UIFont(name: currentFontName[row], size: 55)!
-//        memeTextFieldBottom.font = UIFont(name: currentFontName[row], size: 55)!
-//    }
     //test
+    @IBAction func changeRender() {
+        navBar.isHidden = !navBar.isHidden
+    }
+    
+    // Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let segueID = segue.identifier else {return}
         
@@ -205,13 +199,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             activity, completed, items, error in
             if (activity == UIActivityType.message && completed) {
                 self.save()
-                //test
                 let messageAlert = UIAlertController(title: "", message: "Meme Sent!", preferredStyle: UIAlertControllerStyle.alert)
                 messageAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: {(action: UIAlertAction!) in
                         self.dismiss(animated: true, completion: nil)
                 }))
                 self.present(messageAlert, animated: true, completion: nil)
-                //endTest
             } else {
                 self.save()
                 self.dismiss(animated: true, completion: nil)
@@ -256,7 +248,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         navBar.isHidden = true
         toolBar.isHidden = true
         
-        UIGraphicsBeginImageContextWithOptions(imagePickerImageView.frame.size, false, 0.0)
+//        UIGraphicsBeginImageContextWithOptions(imagePickerImageView.frame.size, false, 0.0)
         view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
         let memedImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         
