@@ -24,6 +24,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var toolBar: UIToolbar!
     
+    var imageViewRatio : Float! //test
+    
 //    var currentFontName = ["Impact", "Courier-Bold", "ChalkboardSE-Bold"]
     
     let memeTextAttributes: [String: Any] = [
@@ -43,10 +45,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         UIApplication.shared.isStatusBarHidden = true
         
         //set textField attributes
-        memeTextFieldTop.defaultTextAttributes = memeTextAttributes
-        memeTextFieldBottom.defaultTextAttributes = memeTextAttributes
-        memeTextFieldTop.textAlignment = .center
-        memeTextFieldBottom.textAlignment = .center
+//        memeTextFieldTop.defaultTextAttributes = memeTextAttributes
+//        memeTextFieldBottom.defaultTextAttributes = memeTextAttributes
+//        memeTextFieldTop.textAlignment = .center
+//        memeTextFieldBottom.textAlignment = .center
         
         //dismiss keyboard
         let didTap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
