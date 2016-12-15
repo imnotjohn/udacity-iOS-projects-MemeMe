@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MemeCreatorViewController.swift
 //  ProjectMemeMe
 //
 //  Created by J on 9/12/16.
@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, ModalViewControllerDelegate {
+class MemeCreatorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, ModalViewControllerDelegate {
     
     @IBOutlet weak var memeTextFieldTop: UITextField!
     @IBOutlet weak var memeTextFieldBottom: UITextField!
@@ -34,6 +34,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var activeTextField = UITextField()
     let imagePickerController = UIImagePickerController()
     
+    var orientation = UIDevice.current.orientation //test
+    var currentWidth : CGFloat!
+    var currentHeight : CGFloat!
+    var currentFrame : CGRect!
+    var transformedValue : CGAffineTransform!
+    var transformedSize : CGSize!
+    var scaledImage : UIImage!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -43,12 +51,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         //set textField attributes
         setDefaultTextAttributes(textField: memeTextFieldTop)
         setDefaultTextAttributes(textField: memeTextFieldBottom)
-//        memeTextFieldTop.defaultTextAttributes = memeTextAttributes
-//        memeTextFieldBottom.defaultTextAttributes = memeTextAttributes
-//        memeTextFieldTop.textAlignment = .center
-//        memeTextFieldBottom.textAlignment = .center
-//        memeTextFieldTop.delegate = self
-//        memeTextFieldBottom.delegate = self
         
         //dismiss keyboard
         let didTap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
@@ -87,8 +89,21 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func getRatioWH() {
         imagePickerImageView.contentMode = .scaleAspectFit
+        
+        orientation = UIDevice.current.orientation
+        currentWidth = UIScreen.main.bounds.width
+        currentHeight = UIScreen.main.bounds.height
+        currentFrame = CGRect(x: 0, y: 0, width: currentWidth, height: currentHeight)
+        if (orientation.isPortrait) && (imagePickerImageView.image != nil) {
+            print("\tPortrait -- W:\t\(currentWidth)\t\tH:\t\(currentHeight)-->\t\(currentFrame)")
+        } else if (orientation.isLandscape) && (imagePickerImageView.image != nil){
+            print("\tNot Portrait -- W:\t\(currentWidth)\t\tH:\t\(currentHeight)-->\t\(currentFrame)")
+        } else {
+            print(":(")
+            print(orientation.isPortrait)
+        }
     }
-    
+
 // MARK: - TextField Delegate
     func textFieldDidBeginEditing(_ textField: UITextField) {
         self.activeTextField = textField
@@ -146,10 +161,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             
             let rect = AVMakeRect(aspectRatio: image.size, insideRect: imagePickerImageView.bounds)
+//            UIGraphicsBeginImageContext(self.view.frame.size)
             UIGraphicsBeginImageContextWithOptions(imagePickerImageView.frame.size, false, 0.0)
+//            UIGraphicsBeginImageContextWithOptions(currentFrame.size, false, 0.0) //test
             image.draw(in: rect)
-            let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+//            let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+            scaledImage = UIGraphicsGetImageFromCurrentImageContext() //test
             imagePickerImageView.image = scaledImage
+            UIGraphicsEndImageContext()
             dismiss(animated: true, completion: nil)
         }
     }
@@ -195,7 +214,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
 // MARK: - NavBar - Share / Cancel
     @IBAction func shareMeme(_ sender: Any) {
-    let memedImage = generateMemedImage()
+        getRatioWH() //test
+        let memedImage = generateMemedImage()
         let activityViewController = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
         //prevents iPads from crashing:
         activityViewController.popoverPresentationController?.sourceView = self.view
@@ -221,6 +241,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         memeTextFieldTop.text = "TOP"
         memeTextFieldBottom.text = "BOTTOM"
         
+        UIGraphicsEndImageContext() //test
         checkImagePickerImageViewHasImage()
     }
     
@@ -233,14 +254,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             cancelMemeOutlet.isEnabled = true
         }
     }
-
-// MARK: - Create Meme
-//    struct Meme {
-//        let topText: String
-//        let bottomText: String
-//        let originalImage: UIImage
-//        let memedImage: UIImage
-//    }
     
     func save() {
         let memedImage = generateMemedImage()
@@ -251,9 +264,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func generateMemedImage() -> UIImage {
         navBar.isHidden = true
         toolBar.isHidden = true
-        
-//        UIGraphicsBeginImageContextWithOptions(imagePickerImageView.frame.size, false, 0.0)
-        view.drawHierarchy(in: view.frame, afterScreenUpdates: true)
+
+        getRatioWH()
+
+        UIGraphicsBeginImageContext(self.view.frame.size) //test
+        view.drawHierarchy(in: currentFrame, afterScreenUpdates: true)
         let memedImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         
         navBar.isHidden = false

@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Meme Creator View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="ProjectMemeMe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController providesPresentationContextTransitionStyle="YES" modalPresentationStyle="currentContext" id="BYZ-38-t0r" customClass="MemeCreatorViewController" customModule="ProjectMemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -106,18 +106,20 @@
                             <constraint firstItem="Koj-dF-VeE" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="B4i-tV-99y"/>
                             <constraint firstItem="xFY-ot-eRu" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="G23-DR-7P0"/>
                             <constraint firstItem="lTd-s0-kSK" firstAttribute="top" secondItem="xFY-ot-eRu" secondAttribute="bottom" id="GzI-sg-KUx"/>
+                            <constraint firstItem="cg0-pq-dPD" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="LMO-gK-eL1"/>
+                            <constraint firstAttribute="trailing" secondItem="cg0-pq-dPD" secondAttribute="trailing" id="Mfk-FI-s6Z"/>
                             <constraint firstItem="xFY-ot-eRu" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="NiC-Qf-Spt"/>
                             <constraint firstItem="cg0-pq-dPD" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Q2K-4P-fLE"/>
                             <constraint firstAttribute="trailing" secondItem="xFY-ot-eRu" secondAttribute="trailing" id="RRR-8f-NCb"/>
                             <constraint firstAttribute="trailing" secondItem="Koj-dF-VeE" secondAttribute="trailing" id="Tte-Sa-Pwo"/>
                             <constraint firstItem="Ex7-fD-fij" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="WnJ-Wy-76h"/>
-                            <constraint firstItem="cg0-pq-dPD" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="XI9-iw-fJO"/>
                             <constraint firstItem="xFY-ot-eRu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="gz4-Ma-Q62"/>
-                            <constraint firstItem="cg0-pq-dPD" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="j9h-Mx-bsG"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Koj-dF-VeE" secondAttribute="bottom" id="lbO-L5-nII"/>
                             <constraint firstItem="Ex7-fD-fij" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="n7g-nD-B6B"/>
                             <constraint firstItem="lTd-s0-kSK" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="uV1-2L-jzd"/>
+                            <constraint firstItem="cg0-pq-dPD" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="xWu-w5-PGw"/>
                             <constraint firstItem="lTd-s0-kSK" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="yh8-pb-em3"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="cg0-pq-dPD" secondAttribute="bottom" id="yme-Lj-c0K"/>
                         </constraints>
                     </view>
                     <connections>
