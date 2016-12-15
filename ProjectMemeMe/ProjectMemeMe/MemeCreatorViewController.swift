@@ -34,12 +34,10 @@ class MemeCreatorViewController: UIViewController, UIImagePickerControllerDelega
     var activeTextField = UITextField()
     let imagePickerController = UIImagePickerController()
     
-    var orientation = UIDevice.current.orientation //test
+    var orientation = UIDevice.current.orientation
     var currentWidth : CGFloat!
     var currentHeight : CGFloat!
     var currentFrame : CGRect!
-    var transformedValue : CGAffineTransform!
-    var transformedSize : CGSize!
     var scaledImage : UIImage!
     
     override func viewDidLoad() {
@@ -90,18 +88,9 @@ class MemeCreatorViewController: UIViewController, UIImagePickerControllerDelega
     func getRatioWH() {
         imagePickerImageView.contentMode = .scaleAspectFit
         
-        orientation = UIDevice.current.orientation
         currentWidth = UIScreen.main.bounds.width
         currentHeight = UIScreen.main.bounds.height
         currentFrame = CGRect(x: 0, y: 0, width: currentWidth, height: currentHeight)
-        if (orientation.isPortrait) && (imagePickerImageView.image != nil) {
-            print("\tPortrait -- W:\t\(currentWidth)\t\tH:\t\(currentHeight)-->\t\(currentFrame)")
-        } else if (orientation.isLandscape) && (imagePickerImageView.image != nil){
-            print("\tNot Portrait -- W:\t\(currentWidth)\t\tH:\t\(currentHeight)-->\t\(currentFrame)")
-        } else {
-            print(":(")
-            print(orientation.isPortrait)
-        }
     }
 
 // MARK: - TextField Delegate
@@ -161,12 +150,9 @@ class MemeCreatorViewController: UIViewController, UIImagePickerControllerDelega
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             
             let rect = AVMakeRect(aspectRatio: image.size, insideRect: imagePickerImageView.bounds)
-//            UIGraphicsBeginImageContext(self.view.frame.size)
             UIGraphicsBeginImageContextWithOptions(imagePickerImageView.frame.size, false, 0.0)
-//            UIGraphicsBeginImageContextWithOptions(currentFrame.size, false, 0.0) //test
             image.draw(in: rect)
-//            let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
-            scaledImage = UIGraphicsGetImageFromCurrentImageContext() //test
+            scaledImage = UIGraphicsGetImageFromCurrentImageContext()
             imagePickerImageView.image = scaledImage
             UIGraphicsEndImageContext()
             dismiss(animated: true, completion: nil)
@@ -214,7 +200,7 @@ class MemeCreatorViewController: UIViewController, UIImagePickerControllerDelega
     
 // MARK: - NavBar - Share / Cancel
     @IBAction func shareMeme(_ sender: Any) {
-        getRatioWH() //test
+        getRatioWH()
         let memedImage = generateMemedImage()
         let activityViewController = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
         //prevents iPads from crashing:
@@ -241,7 +227,7 @@ class MemeCreatorViewController: UIViewController, UIImagePickerControllerDelega
         memeTextFieldTop.text = "TOP"
         memeTextFieldBottom.text = "BOTTOM"
         
-        UIGraphicsEndImageContext() //test
+        UIGraphicsEndImageContext() 
         checkImagePickerImageViewHasImage()
     }
     
@@ -267,7 +253,7 @@ class MemeCreatorViewController: UIViewController, UIImagePickerControllerDelega
 
         getRatioWH()
 
-        UIGraphicsBeginImageContext(self.view.frame.size) //test
+        UIGraphicsBeginImageContext(self.view.frame.size)
         view.drawHierarchy(in: currentFrame, afterScreenUpdates: true)
         let memedImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         
