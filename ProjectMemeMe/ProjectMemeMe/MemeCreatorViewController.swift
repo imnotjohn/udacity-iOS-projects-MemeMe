@@ -71,6 +71,8 @@ class MemeCreatorViewController: UIViewController, UIImagePickerControllerDelega
         cameraItemBarButtonItem.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
         checkImagePickerImageViewHasImage()
         subscribeToKeyboardNotifications()
+        
+        self.tabBarController?.tabBar.isHidden = true //test
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -183,12 +185,17 @@ class MemeCreatorViewController: UIViewController, UIImagePickerControllerDelega
         guard let segueID = segue.identifier else {return}
         
         switch segueID {
-            case "modalSegue":
-                let destVC = segue.destination as! ModalViewController
-                destVC.modalDelegate = self
-                break
-            default:
-                break
+        case "modalSegue":
+            let destVC = segue.destination as! ModalViewController
+            destVC.modalDelegate = self
+            self.tabBarController?.tabBar.isHidden = true
+            break
+        case "createMemeSegue":
+            let destVC = segue.destination as! MemeCreatorViewController
+            destVC.imagePickerController.delegate = self
+            self.tabBarController?.tabBar.isHidden = true
+        default:
+            break
         }
     }
     
@@ -229,6 +236,8 @@ class MemeCreatorViewController: UIViewController, UIImagePickerControllerDelega
         
         UIGraphicsEndImageContext() 
         checkImagePickerImageViewHasImage()
+        
+        self.dismiss(animated: true, completion: nil) //test
     }
     
     func checkImagePickerImageViewHasImage() {
@@ -249,6 +258,8 @@ class MemeCreatorViewController: UIViewController, UIImagePickerControllerDelega
         let object = UIApplication.shared.delegate
         let appDelegate = object as! AppDelegate
         appDelegate.memes.append(meme)
+        
+        self.dismiss(animated: true, completion: nil) //test
     }
     
     func generateMemedImage() -> UIImage {

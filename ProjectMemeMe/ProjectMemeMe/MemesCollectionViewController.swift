@@ -1,19 +1,17 @@
 //
-//  MemeCollectionViewController.swift
+//  MemesCollectionViewController.swift
 //  ProjectMemeMe
 //
-//  Created by Jonathan Chinen on 26/12/16.
+//  Created by J on 23/12/16.
 //  Copyright © 2016 Udacity. All rights reserved.
 //
 
 import UIKit
 
-private let reuseIdentifier = "memeCollectionCell"
+private let reuseIdentifier = "Cell"
 
-class MemeCollectionViewController: UICollectionViewController {
+class MemesCollectionViewController: UICollectionViewController {
 
-    var memes : [Meme]!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -24,8 +22,6 @@ class MemeCollectionViewController: UICollectionViewController {
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
-        let applicationDelegate = UIApplication.shared.delegate as! AppDelegate
-        memes = applicationDelegate.memes
     }
 
     override func didReceiveMemoryWarning() {
@@ -52,21 +48,16 @@ class MemeCollectionViewController: UICollectionViewController {
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.memes.count
+        // #warning Incomplete implementation, return the number of items
+        return 0
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! MemeCollectionViewCell
-        let meme = self.memes[(indexPath as NSIndexPath).row]
-
-        // Configure the cell...
-//        cell.textLabel?.text = meme.topText + meme.bottomText
-//        cell.imageView?.image = meme.memedImage
-        return cell
-    }
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
     
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("collection view")
+        // Configure the cell
+    
+        return cell
     }
 
     // MARK: UICollectionViewDelegate
