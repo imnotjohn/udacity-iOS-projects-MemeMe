@@ -13,6 +13,7 @@ private let reuseIdentifier = "memeCollectionCell"
 class MemeCollectionViewController: UICollectionViewController {
 
     var memes : [Meme]!
+    @IBOutlet var collectionViewOutlet: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,13 +25,26 @@ class MemeCollectionViewController: UICollectionViewController {
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.actOnMemeAddedNotification), name: NSNotification.Name(rawValue: memeAddedNotificationKey), object: nil)
+        
         let applicationDelegate = UIApplication.shared.delegate as! AppDelegate
         memes = applicationDelegate.memes
+        
+        print(memes)
+        print("\t\tCV appearing....")
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+//        NotificationCenter.default.removeObserver(self)
+        print("\t\tCV disappearing....")
     }
 
     /*
@@ -61,7 +75,7 @@ class MemeCollectionViewController: UICollectionViewController {
 
         // Configure the cell...
 //        cell.textLabel?.text = meme.topText + meme.bottomText
-//        cell.imageView?.image = meme.memedImage
+        cell.cellImageView?.image = meme.memedImage
         return cell
     }
     
@@ -69,6 +83,11 @@ class MemeCollectionViewController: UICollectionViewController {
         print("collection view")
     }
 
+    func actOnMemeAddedNotification() {
+        self.collectionViewOutlet.reloadData()
+        print("\t\tcollectionView reloadData")
+    }
+    
     // MARK: UICollectionViewDelegate
 
     /*

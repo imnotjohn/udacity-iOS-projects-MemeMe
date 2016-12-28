@@ -9,6 +9,9 @@
 import UIKit
 import AVFoundation
 
+//test
+let memeAddedNotificationKey = "com.Udacity.ProjectMemeMe.memeAddedNotificationKey"
+
 class MemeCreatorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, ModalViewControllerDelegate {
     
     @IBOutlet weak var memeTextFieldTop: UITextField!
@@ -78,6 +81,10 @@ class MemeCreatorViewController: UIViewController, UIImagePickerControllerDelega
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         unsubscribeFromKeyboardNotifications()
+        
+        //test
+        NotificationCenter.default.removeObserver(MemeTableViewController.actOnMemeAddedNotification)
+        NotificationCenter.default.removeObserver(MemeCollectionViewController.actOnMemeAddedNotification)
     }
     
 // MARK: - Determine Orientation
@@ -188,19 +195,13 @@ class MemeCreatorViewController: UIViewController, UIImagePickerControllerDelega
         case "modalSegue":
             let destVC = segue.destination as! ModalViewController
             destVC.modalDelegate = self
-            self.tabBarController?.tabBar.isHidden = true
             break
-        case "createMemeSegue":
-            let destVC = segue.destination as! MemeCreatorViewController
-            destVC.imagePickerController.delegate = self
-            self.tabBarController?.tabBar.isHidden = true
         default:
             break
         }
     }
     
     func sendValue(value: NSString) {
-        print(value)
         memeTextFieldTop.font = UIFont(name: value as String, size: 55)!
         memeTextFieldBottom.font = UIFont(name: value as String, size: 55)!
     }
@@ -215,12 +216,14 @@ class MemeCreatorViewController: UIViewController, UIImagePickerControllerDelega
         
         activityViewController.completionWithItemsHandler = {
             activity, completed, items, error in
-            if (activity == UIActivityType.message && completed) {
+            if (completed) {
                 self.save()
+                self.notifyMemeAdded() //test
                 let messageAlert = UIAlertController(title: "", message: "Meme Sent!", preferredStyle: UIAlertControllerStyle.alert)
                 messageAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: {(action: UIAlertAction!) in
                         self.dismiss(animated: true, completion: nil)
                 }))
+                
                 self.present(messageAlert, animated: true, completion: nil)
             } else {
                 self.dismiss(animated: true, completion: nil)
@@ -236,8 +239,6 @@ class MemeCreatorViewController: UIViewController, UIImagePickerControllerDelega
         
         UIGraphicsEndImageContext() 
         checkImagePickerImageViewHasImage()
-        
-        self.dismiss(animated: true, completion: nil) //test
     }
     
     func checkImagePickerImageViewHasImage() {
@@ -258,8 +259,6 @@ class MemeCreatorViewController: UIViewController, UIImagePickerControllerDelega
         let object = UIApplication.shared.delegate
         let appDelegate = object as! AppDelegate
         appDelegate.memes.append(meme)
-        
-        self.dismiss(animated: true, completion: nil) //test
     }
     
     func generateMemedImage() -> UIImage {
@@ -275,6 +274,12 @@ class MemeCreatorViewController: UIViewController, UIImagePickerControllerDelega
         navBar.isHidden = false
         toolBar.isHidden = false
         return memedImage
+    }
+    
+    //test
+    func notifyMemeAdded() {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: memeAddedNotificationKey), object: self)
+        print("notified!")
     }
 }
 

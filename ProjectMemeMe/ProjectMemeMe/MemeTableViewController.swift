@@ -11,6 +11,7 @@ import UIKit
 class MemeTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var memes : [Meme]!
+    @IBOutlet weak var tableViewOutlet: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,15 +22,29 @@ class MemeTableViewController: UIViewController, UITableViewDataSource, UITableV
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
-        let applicationDelegate = UIApplication.shared.delegate as! AppDelegate
-        memes = applicationDelegate.memes
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = false
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.actOnMemeAddedNotification), name: NSNotification.Name(rawValue: memeAddedNotificationKey), object: nil)
+        
+        let applicationDelegate = UIApplication.shared.delegate as! AppDelegate
+        memes = applicationDelegate.memes
+        
+        print(memes)
+        print("\t\tTVC appearing...")
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+//        NotificationCenter.default.removeObserver(self)
+        print("\t\tTVC disappearing....")
+    }
+    
     // MARK: - Table view data source
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -61,6 +76,10 @@ class MemeTableViewController: UIViewController, UITableViewDataSource, UITableV
         self.tabBarController?.tabBar.isHidden = true
     }
     
+    func actOnMemeAddedNotification() {
+        self.tableViewOutlet.reloadData()
+        print("\t\ttableView reloadData")
+    }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

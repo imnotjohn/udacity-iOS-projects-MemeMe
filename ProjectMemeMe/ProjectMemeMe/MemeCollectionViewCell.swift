@@ -9,5 +9,5 @@
 import UIKit
 
 class MemeCollectionViewCell: UICollectionViewCell {
-    
+    var cellImageView : UIImageView!
 }

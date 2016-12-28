@@ -47,8 +47,6 @@ class ModalViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        //        memeTextFieldTop.font = UIFont(name: currentFontName[row], size: 55)!
-        //        memeTextFieldBottom.font = UIFont(name: currentFontName[row], size: 55)!
         if let del = modalDelegate {
             del.sendValue(value: currentFontName[row] as NSString)
         }
