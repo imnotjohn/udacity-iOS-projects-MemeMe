@@ -11,6 +11,7 @@ import UIKit
 class MemeTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var memes : [Meme]!
+    
     @IBOutlet weak var tableViewOutlet: UITableView!
     
     override func viewDidLoad() {
@@ -21,8 +22,6 @@ class MemeTableViewController: UIViewController, UITableViewDataSource, UITableV
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,35 +34,30 @@ class MemeTableViewController: UIViewController, UITableViewDataSource, UITableV
         memes = applicationDelegate.memes
         
         print(memes)
+        print(self.memes.count)
         print("\t\tTVC appearing...")
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-//        NotificationCenter.default.removeObserver(self)
         print("\t\tTVC disappearing....")
     }
     
     // MARK: - Table view data source
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return self.memes.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "memeTableCell", for: indexPath)
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "memeTableCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "memeTableCell")!
         let meme = self.memes[(indexPath as NSIndexPath).row]
         // Configure the cell...
         cell.textLabel?.text = meme.topText
         cell.detailTextLabel?.text = meme.bottomText
         cell.imageView?.image = meme.memedImage
+
         return cell
     }
 
@@ -78,6 +72,8 @@ class MemeTableViewController: UIViewController, UITableViewDataSource, UITableV
     
     func actOnMemeAddedNotification() {
         self.tableViewOutlet.reloadData()
+        NotificationCenter.default.removeObserver(self)
+        print(self.memes.count)
         print("\t\ttableView reloadData")
     }
     /*

@@ -101,7 +101,6 @@
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="cg0-pq-dPD" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="54" id="9bK-e8-1QJ"/>
                             <constraint firstItem="Koj-dF-VeE" firstAttribute="top" secondItem="Ex7-fD-fij" secondAttribute="bottom" id="A4t-mj-yh9"/>
                             <constraint firstItem="Koj-dF-VeE" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="B4i-tV-99y"/>
                             <constraint firstItem="xFY-ot-eRu" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="64" id="G23-DR-7P0"/>
@@ -246,6 +245,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="LLw-Xh-5Bt" id="bMz-85-vab"/>
+                                    <outlet property="delegate" destination="LLw-Xh-5Bt" id="DRE-de-puh"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -300,7 +303,7 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="memeCollectionCell" id="POb-b0-UG6">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="memeCollectionCell" id="POb-b0-UG6" customClass="MemeCollectionViewCell" customModule="ProjectMemeMe" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="180" height="180"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -313,11 +316,14 @@
                                         </imageView>
                                     </subviews>
                                 </view>
+                                <connections>
+                                    <outlet property="cellImageView" destination="N1f-Wh-9sN" id="S3H-M6-4o9"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
-                            <outlet property="dataSource" destination="9eq-OU-0QC" id="o8g-fp-yFR"/>
-                            <outlet property="delegate" destination="9eq-OU-0QC" id="Y0R-1F-DRY"/>
+                            <outlet property="dataSource" destination="9eq-OU-0QC" id="jLR-W9-rJY"/>
+                            <outlet property="delegate" destination="9eq-OU-0QC" id="Lsf-tp-EjJ"/>
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="7ch-Hp-4wp">
@@ -328,7 +334,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="collectionViewOutlet" destination="odE-Ct-TTP" id="hwq-PG-eMM"/>
+                        <outlet property="collectionViewOutlet" destination="odE-Ct-TTP" id="foG-Cn-Ye6"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Eu-C6-KVd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -379,6 +385,6 @@
         <image name="typeface44" width="18" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="I8f-BK-pxN"/>
+        <segue reference="cw0-Bj-6j8"/>
     </inferredMetricsTieBreakers>
 </document>
