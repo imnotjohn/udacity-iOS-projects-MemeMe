@@ -14,18 +14,9 @@ private let reuseIdentifier = "memeCollectionCell"
 class MemeCollectionViewController: UICollectionViewController {
 
     var memes : [Meme]!
-    @IBOutlet var collectionViewOutlet: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-        self.collectionView!.register(MemeCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
-        // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,8 +26,6 @@ class MemeCollectionViewController: UICollectionViewController {
         
         let applicationDelegate = UIApplication.shared.delegate as! AppDelegate
         memes = applicationDelegate.memes
-        
-        print(memes)
         print("\t\tCV appearing....")
     }
     
@@ -44,16 +33,6 @@ class MemeCollectionViewController: UICollectionViewController {
         super.viewWillDisappear(animated)
         print("\t\tCV disappearing....")
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
 
     // MARK: UICollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -65,8 +44,9 @@ class MemeCollectionViewController: UICollectionViewController {
         let meme = self.memes[(indexPath as NSIndexPath).row]
 
         // Configure the cell...
-//        cell.textLabel?.text = meme.topText + meme.bottomText
         cell.cellImageView?.image = meme.memedImage
+        cell.cellTopText?.text = meme.topText
+        cell.cellBottomText?.text = meme.bottomText
         return cell
     }
     
@@ -75,8 +55,7 @@ class MemeCollectionViewController: UICollectionViewController {
     }
 
     func actOnMemeAddedNotification() {
-        self.collectionViewOutlet.reloadData()
-//        collectionView?.reloadData()
+        self.collectionView?.reloadData()
         NotificationCenter.default.removeObserver(self)
         print("\t\tcollectionView reloadData")
     }
