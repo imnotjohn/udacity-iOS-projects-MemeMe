@@ -81,10 +81,6 @@ class MemeCreatorViewController: UIViewController, UIImagePickerControllerDelega
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         unsubscribeFromKeyboardNotifications()
-        
-        //test
-        NotificationCenter.default.removeObserver(MemeTableViewController.actOnMemeAddedNotification)
-        NotificationCenter.default.removeObserver(MemeCollectionViewController.actOnMemeAddedNotification)
     }
     
 // MARK: - Determine Orientation
@@ -223,7 +219,6 @@ class MemeCreatorViewController: UIViewController, UIImagePickerControllerDelega
                 messageAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: {(action: UIAlertAction!) in
                         self.dismiss(animated: true, completion: nil)
                 }))
-                
                 self.present(messageAlert, animated: true, completion: nil)
             } else {
                 self.dismiss(animated: true, completion: nil)
@@ -276,7 +271,6 @@ class MemeCreatorViewController: UIViewController, UIImagePickerControllerDelega
         return memedImage
     }
     
-    //test
     func notifyMemeAdded() {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: memeAddedNotificationKey), object: self)
         print("notified!")

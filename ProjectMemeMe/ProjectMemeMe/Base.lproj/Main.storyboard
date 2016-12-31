@@ -137,7 +137,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5796" y="1085.3073463268368"/>
+            <point key="canvasLocation" x="4606" y="1094"/>
         </scene>
         <!--Modal View Controller-->
         <scene sceneID="qkz-2m-a1T">
@@ -183,7 +183,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="seh-r3-7cS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6591.1999999999998" y="1084.4077961019491"/>
+            <point key="canvasLocation" x="5401" y="1093"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="jwD-uR-OPE">
@@ -246,8 +246,8 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="LLw-Xh-5Bt" id="bMz-85-vab"/>
-                                    <outlet property="delegate" destination="LLw-Xh-5Bt" id="DRE-de-puh"/>
+                                    <outlet property="dataSource" destination="LLw-Xh-5Bt" id="cZq-8f-ovz"/>
+                                    <outlet property="delegate" destination="LLw-Xh-5Bt" id="p6e-Kq-YZn"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -256,7 +256,6 @@
                     <navigationItem key="navigationItem" id="pcw-2J-Qbr">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="rKZ-tz-6lS">
                             <connections>
-                                <action selector="toMemeCreate:" destination="LLw-Xh-5Bt" id="76q-ua-1bq"/>
                                 <segue destination="pbk-lD-B6Y" kind="show" id="I8f-BK-pxN"/>
                             </connections>
                         </barButtonItem>
@@ -268,7 +267,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xti-6A-MH1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2671.1999999999998" y="732.68365817091455"/>
+            <point key="canvasLocation" x="2670" y="733"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="LI1-dw-tjU">
@@ -362,12 +361,12 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="view" destination="OEB-Be-3O3" id="c2X-Mq-Fm6"/>
+                        <outlet property="view" destination="OEB-Be-3O3" id="9dr-TD-3pN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b1b-io-gEc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2736.8000000000002" y="1437.0314842578712"/>
+            <point key="canvasLocation" x="2671" y="1437"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="TUb-Z9-dKD">
@@ -386,7 +385,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oD6-ha-5dz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4927.1999999999998" y="1085.3073463268368"/>
+            <point key="canvasLocation" x="3737" y="1094"/>
         </scene>
         <!--CV Navigation Controller-->
         <scene sceneID="clc-L7-8t3">
