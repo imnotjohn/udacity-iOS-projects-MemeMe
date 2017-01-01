@@ -14,9 +14,17 @@ private let reuseIdentifier = "memeCollectionCell"
 class MemeCollectionViewController: UICollectionViewController {
 
     var memes : [Meme]!
+    @IBOutlet weak var flowLayout : UICollectionViewFlowLayout!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let space : CGFloat = 3.0
+        let dimension = (self.view.frame.size.width - (2*space)) / 3.0
+        
+        flowLayout.itemSize = CGSize(width: dimension, height: dimension)
+        flowLayout.minimumInteritemSpacing = space
+        flowLayout.minimumLineSpacing = space
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -361,7 +361,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="view" destination="OEB-Be-3O3" id="9dr-TD-3pN"/>
+                        <outlet property="flowLayout" destination="ftn-yo-GsX" id="I6F-Y4-Gxx"/>
+                        <outlet property="view" destination="OEB-Be-3O3" id="Dph-sh-aBE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b1b-io-gEc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -412,6 +413,6 @@
         <image name="typeface44" width="18" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="I8f-BK-pxN"/>
+        <segue reference="4Qo-dB-faQ"/>
     </inferredMetricsTieBreakers>
 </document>
