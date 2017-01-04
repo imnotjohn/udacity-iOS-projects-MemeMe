@@ -234,15 +234,14 @@ class MemeCreatorViewController: UIViewController, UIImagePickerControllerDelega
         
         UIGraphicsEndImageContext() 
         checkImagePickerImageViewHasImage()
+        self.dismiss(animated: true, completion: nil) 
     }
     
     func checkImagePickerImageViewHasImage() {
         if imagePickerImageView.image == nil {
             shareMemeOutlet.isEnabled = false
-            cancelMemeOutlet.isEnabled = false
         } else {
             shareMemeOutlet.isEnabled = true
-            cancelMemeOutlet.isEnabled = true
         }
     }
     
@@ -273,7 +272,6 @@ class MemeCreatorViewController: UIViewController, UIImagePickerControllerDelega
     
     func notifyMemeAdded() {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: memeAddedNotificationKey), object: self)
-        print("notified!")
     }
 }
 

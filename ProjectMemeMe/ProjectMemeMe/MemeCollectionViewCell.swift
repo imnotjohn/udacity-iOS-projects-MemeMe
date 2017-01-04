@@ -10,6 +10,4 @@ import UIKit
 
 class MemeCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var cellImageView : UIImageView!
-    @IBOutlet weak var cellTopText : UILabel!
-    @IBOutlet weak var cellBottomText : UILabel!
 }

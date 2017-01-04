@@ -14,6 +14,8 @@ private let reuseIdentifier = "memeCollectionCell"
 class MemeCollectionViewController: UICollectionViewController {
 
     var memes : [Meme]!
+    var orientation = UIDeviceOrientation.portrait
+    
     @IBOutlet weak var flowLayout : UICollectionViewFlowLayout!
     
     override func viewDidLoad() {
@@ -35,6 +37,7 @@ class MemeCollectionViewController: UICollectionViewController {
         let applicationDelegate = UIApplication.shared.delegate as! AppDelegate
         memes = applicationDelegate.memes
         print("\t\tCV appearing....")
+        print(orientation)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -53,13 +56,13 @@ class MemeCollectionViewController: UICollectionViewController {
 
         // Configure the cell...
         cell.cellImageView?.image = meme.memedImage
-        cell.cellTopText?.text = meme.topText
-        cell.cellBottomText?.text = meme.bottomText
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("collection view")
+        let detailController = self.storyboard!.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
+        detailController.memes = self.memes[((indexPath as? NSIndexPath)?.row)!]
+        self.navigationController!.pushViewController(detailController, animated: true)
     }
 
     func actOnMemeAddedNotification() {
