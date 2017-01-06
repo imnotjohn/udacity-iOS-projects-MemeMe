@@ -15,8 +15,6 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,12 +28,4 @@ class DetailViewController: UIViewController {
         super.viewWillDisappear(animated)
         self.tabBarController?.tabBar.isHidden = false
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//            let controller = (segue.destinationViewController as! UINavigationController.topViewController as! DetailViewController)
-//            let row = (sender as! NSIndexPath).row
-//            let detail = memes[row] as! DetailViewController
-            print("Did Segue")
-    }
-
 }

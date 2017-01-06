@@ -214,17 +214,26 @@ class MemeCreatorViewController: UIViewController, UIImagePickerControllerDelega
             activity, completed, items, error in
             if (completed) {
                 self.save()
-                self.notifyMemeAdded() //test
-                let messageAlert = UIAlertController(title: "", message: "Meme Sent!", preferredStyle: UIAlertControllerStyle.alert)
-                messageAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: {(action: UIAlertAction!) in
-                        self.dismiss(animated: true, completion: nil)
-                }))
-                self.present(messageAlert, animated: true, completion: nil)
+                self.notifyMemeAdded()
+                self.displayMessageAlert()
+//                let messageAlert = UIAlertController(title: "", message: "Meme Sent!", preferredStyle: UIAlertControllerStyle.alert)
+//                messageAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: {(action: UIAlertAction!) in
+//                        self.dismiss(animated: true, completion: nil)
+//                }))
+//                self.present(messageAlert, animated: true, completion: nil)
             } else {
                 self.dismiss(animated: true, completion: nil)
             }
         }
         self.present(activityViewController, animated: true, completion: nil)
+    }
+    
+    func displayMessageAlert() {
+        let messageAlert = UIAlertController(title: "", message: "Meme Sent!", preferredStyle: UIAlertControllerStyle.alert)
+        messageAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: {(action: UIAlertAction!) in
+            self.dismiss(animated: true, completion: nil)
+        }))
+        self.present(messageAlert, animated: true, completion: nil)
     }
     
     @IBAction func cancelMeme(_ sender: UIBarButtonItem!) {

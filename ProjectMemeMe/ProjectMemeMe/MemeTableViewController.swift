@@ -26,8 +26,6 @@ class MemeTableViewController: UIViewController, UITableViewDataSource, UITableV
         
         let applicationDelegate = UIApplication.shared.delegate as! AppDelegate
         memes = applicationDelegate.memes
-        
-        print(self.memes.count)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -46,12 +44,12 @@ class MemeTableViewController: UIViewController, UITableViewDataSource, UITableV
     
     // MARK: - Table view data source
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.memes.count
+        return memes.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "memeTableCell")!
-        let meme = self.memes[(indexPath as NSIndexPath).row]
+        let meme = memes[(indexPath as NSIndexPath).row]
         // Configure the cell...
         cell.textLabel?.text = meme.topText
         cell.detailTextLabel?.text = meme.bottomText
@@ -62,13 +60,12 @@ class MemeTableViewController: UIViewController, UITableViewDataSource, UITableV
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailController = self.storyboard!.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
-        detailController.memes = self.memes[((indexPath as? NSIndexPath)?.row)!]
+        detailController.memes = memes[((indexPath as? NSIndexPath)?.row)!]
         self.navigationController!.pushViewController(detailController, animated: true)
     }
     
     func actOnMemeAddedNotification() {
         didMeme = true
-        print(didMeme)
         NotificationCenter.default.removeObserver(self)
     }
     
