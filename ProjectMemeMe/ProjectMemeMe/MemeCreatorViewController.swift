@@ -216,11 +216,6 @@ class MemeCreatorViewController: UIViewController, UIImagePickerControllerDelega
                 self.save()
                 self.notifyMemeAdded()
                 self.displayMessageAlert()
-//                let messageAlert = UIAlertController(title: "", message: "Meme Sent!", preferredStyle: UIAlertControllerStyle.alert)
-//                messageAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: {(action: UIAlertAction!) in
-//                        self.dismiss(animated: true, completion: nil)
-//                }))
-//                self.present(messageAlert, animated: true, completion: nil)
             } else {
                 self.dismiss(animated: true, completion: nil)
             }

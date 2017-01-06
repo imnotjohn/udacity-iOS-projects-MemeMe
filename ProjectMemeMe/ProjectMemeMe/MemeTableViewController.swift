@@ -31,14 +31,13 @@ class MemeTableViewController: UIViewController, UITableViewDataSource, UITableV
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if (didMeme == true) {
-            tableViewOutlet.reloadData()
+            tableViewReload()
             didMeme = false
         }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        print("\t\tTVC disappearing....")
         activateDidMemeListener()
     }
     
@@ -62,6 +61,29 @@ class MemeTableViewController: UIViewController, UITableViewDataSource, UITableV
         let detailController = self.storyboard!.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
         detailController.memes = memes[((indexPath as? NSIndexPath)?.row)!]
         self.navigationController!.pushViewController(detailController, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.delete) {
+            
+            let object = UIApplication.shared.delegate
+            let appDelegate = object as! AppDelegate
+            
+            self.tableViewOutlet.beginUpdates()
+            appDelegate.memes.remove(at: indexPath.row) //appdelegate stored memes
+            memes = appDelegate.memes //tableview stored meme values
+            tableViewReload()
+            self.tableViewOutlet.deleteRows(at: [indexPath], with: .fade)
+            self.tableViewOutlet.endUpdates()
+        }
+    }
+    
+    func tableViewReload() {
+        tableViewOutlet.reloadData()
     }
     
     func actOnMemeAddedNotification() {
