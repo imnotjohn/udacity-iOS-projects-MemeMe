@@ -79,6 +79,7 @@ class MemeTableViewController: UIViewController, UITableViewDataSource, UITableV
             tableViewReload()
             self.tableViewOutlet.deleteRows(at: [indexPath], with: .fade)
             self.tableViewOutlet.endUpdates()
+            notifyMemeDeleted()
         }
     }
     
@@ -93,5 +94,9 @@ class MemeTableViewController: UIViewController, UITableViewDataSource, UITableV
     
     func activateDidMemeListener() {
         NotificationCenter.default.addObserver(self, selector: #selector(self.actOnMemeAddedNotification), name: NSNotification.Name(rawValue: memeAddedNotificationKey), object: nil)
+    }
+    
+    func notifyMemeDeleted() {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: memeAddedNotificationKey), object: self)
     }
 }

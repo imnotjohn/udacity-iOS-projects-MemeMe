@@ -56,6 +56,7 @@ class MemeCollectionViewController: UICollectionViewController {
         let detailController = self.storyboard!.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
         detailController.memes = memes[((indexPath as? NSIndexPath)?.row)!]
         self.navigationController!.pushViewController(detailController, animated: true)
+        print("I exist")
     }
 
     func actOnMemeAddedNotification() {
