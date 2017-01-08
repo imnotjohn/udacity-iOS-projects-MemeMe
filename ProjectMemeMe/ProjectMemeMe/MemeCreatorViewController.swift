@@ -101,6 +101,7 @@ class MemeCreatorViewController: UIViewController, UIImagePickerControllerDelega
 // MARK: - TextField Delegate
     func textFieldDidBeginEditing(_ textField: UITextField) {
         self.activeTextField = textField
+        textField.allowsEditingTextAttributes = true
     }
     
     func topTextFieldIsEditing() -> Bool {
