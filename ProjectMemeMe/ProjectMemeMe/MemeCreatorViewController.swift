@@ -64,12 +64,11 @@ class MemeCreatorViewController: UIViewController, UIImagePickerControllerDelega
     
     func setDefaultTextAttributes(textField : UITextField) {
         textField.defaultTextAttributes = memeTextAttributes
-        textField.delegate = self
         textField.textAlignment = .center
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
         
         cameraItemBarButtonItem.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
         checkImagePickerImageViewHasImage()
@@ -105,11 +104,7 @@ class MemeCreatorViewController: UIViewController, UIImagePickerControllerDelega
     }
     
     func topTextFieldIsEditing() -> Bool {
-        if self.activeTextField == memeTextFieldTop {
-            return true
-        } else {
-            return false
-        }
+        return self.activeTextField == memeTextFieldTop
     }
 
 // MARK: - Keyboard Control

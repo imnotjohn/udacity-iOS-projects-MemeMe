@@ -53,7 +53,7 @@ class ModalViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
     }
     
     @IBAction func doneSelectingFont(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
 
